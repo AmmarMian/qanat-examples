@@ -1,5 +1,5 @@
 # ========================================
-# FileName: correlated_low_dimension.py
+# FileName: white_high_dimension.py
 # Date: 25 mai 2023 - 15:04
 # Author: Ammar Mian
 # Email: ammar.mian@univ-smb.fr

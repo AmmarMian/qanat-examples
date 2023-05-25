@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     # Generate samples
     cov = np.array(args.cov).reshape(2, 2)
-    samples = rng.multivariate_normal(args.mean, cov, args.n_samples)
+    samples = rng.multivariate_normal(args.mean, cov, int(args.n_samples))
 
     # Save samples and parameters
     if not os.path.exists(os.path.dirname(args.storage_path)):

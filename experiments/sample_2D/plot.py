@@ -129,4 +129,4 @@ if __name__ == "__main__":
             tikzplotlib.save(os.path.join(folder, 'plot.tex'))
             print('Saved plot in {}'.format(folder))
 
-        plt.show()
+    plt.show()

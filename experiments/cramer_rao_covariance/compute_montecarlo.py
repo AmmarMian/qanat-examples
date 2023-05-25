@@ -40,7 +40,7 @@ if __name__ == "__main__":
                         ' containing the parameters of the simulation: '
                         'covariance, number of samples list, number of '
                         'trials.')
-    parser.add_argument('--trials_range', type=int, nargs=str, default=None,
+    parser.add_argument('--trials_range', type=str, default=None,
                         help='Range of the total number of trials to run in '
                         'this script. BETWEEN QUOTES, SEPARATED BY SPACE.\n'
                         'If None, the script will run all the trials.'

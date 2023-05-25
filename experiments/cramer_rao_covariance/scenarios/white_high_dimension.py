@@ -11,12 +11,12 @@
 
 import numpy as np
 
-n_features = 1000
+n_features = 150
 n_samples_list = np.logspace(1, 3, 30,
                              base=n_features,
                              dtype=int)
 n_samples_list = np.unique(n_samples_list)
-n_trials = 1000
+n_trials = 100
 
 mean = np.zeros(n_features)
 covariance = np.eye(n_features)

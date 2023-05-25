@@ -21,6 +21,7 @@ from pathlib import Path
 import importlib
 import rich
 from tqdm import tqdm
+import pickle
 
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
@@ -148,13 +149,24 @@ if __name__ == "__main__":
     with open(progress_file, 'a') as f:
         f.write('finished')
 
-    # Store the results of the Monte-Carlo simulation
+    # Compute the mean and covariance of the MSE
     mse_location = np.zeros((n_trials, len(n_samples_list)))
     mse_covariance = np.zeros((n_trials, len(n_samples_list)))
     for trial_no in range(0, trials_range[1] - trials_range[0] + 1):
         mse_location[trial_no, :], mse_covariance[trial_no, :] = \
             results_jobs[trial_no][0], results_jobs[trial_no][1]
-    np.save(os.path.join(args.storage_path, 'mse_location.npy'),
-            mse_location)
-    np.save(os.path.join(args.storage_path, 'mse_covariance.npy'),
-            mse_covariance)
+    mse_location_mean = np.mean(mse_location, axis=0)
+    mse_covariance_mean = np.mean(mse_covariance, axis=0)
+
+    # Save the results
+    results = {'mse_location_mean': mse_location_mean,
+               'mse_covariance_mean': mse_covariance_mean,
+               'trials_range': trials_range,
+               'n_trials': n_trials,
+               'n_samples_list': n_samples_list,
+               'mean': mean,
+               'covariance': covariance,
+               'seed': seed}
+    results_file = os.path.join(args.storage_path, 'results.pkl')
+    with open(results_file, 'wb') as f:
+        pickle.dump(results, f)

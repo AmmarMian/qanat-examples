@@ -16,7 +16,7 @@ n_samples_list = np.logspace(1, 2, 30,
                              base=n_features,
                              dtype=int)
 n_samples_list = np.unique(n_samples_list)
-n_trials = 100
+n_trials = 10000
 
 mean = np.zeros(n_features)
 covariance = np.eye(n_features)

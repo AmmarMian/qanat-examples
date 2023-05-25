@@ -13,14 +13,17 @@ import os
 import numpy as np
 import pickle
 import matplotlib.pyplot as plt
+import seaborn as sns
 import tikzplotlib
-
+import rich
 import sys
 file_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(file_dir, '../..'))
 from src.utils import (
         tikzplotlib_fix_ncols)
 
+
+sns.set_style('darkgrid')
 
 # Activate LaTeX text rendering
 # if available on your system
@@ -32,37 +35,56 @@ def generate_figure(mse_location_mean,
                     mse_location_std,
                     mse_covariance_mean,
                     mse_covariance_std,
-                    trias_range,
+                    n_samples_list,
                     folder,
                     save=False):
 
     # Figure with location
     fig_location, ax_location = plt.subplots(1, 1, figsize=(6, 4))
-    ax_location.plot(trias_range, mse_location_mean, label='Location',
-                     marker='o', markersize=2, linestyle='--')
+    ax_location.plot(n_samples_list, mse_location_mean, label='Location',
+                     marker='o', markersize=5, linestyle='-')
+
+    # Fill between the standard deviation
+    ax_location.fill_between(n_samples_list,
+                             mse_location_mean - mse_location_std,
+                             mse_location_mean + mse_location_std,
+                             color='b', alpha=0.2,
+                             label='Standard deviation')
+
     ax_location.set_xlabel('Number of samples')
     ax_location.set_ylabel('MSE')
     ax_location.set_title(
-            'MSE as a function of the number of samples: location')
+            'MSE as a function of the number of samples: location\n'
+            'Folder: {}'.format(folder))
+    # Semi-log plot
     ax_location.set_xscale('log')
-    ax_location.set_yscale('log')
 
     if save:
         plt.savefig(os.path.join(folder, 'MSE_location.pdf'),
                     bbox_inches='tight')
         tikzplotlib_fix_ncols(fig_location)
-        tikzplotlib.save(os.path.join(folder, 'MSE_location.tex'))
+        tikzplotlib.save(os.path.join(folder, 'MSE_location.tex'),
+                         figure=fig_location)
         print('Saved location plot in {}'.format(folder))
 
     fig_cov, ax_cov = plt.subplots(1, 1, figsize=(6, 4))
-    ax_cov.plot(trias_range, mse_covariance_mean, label='Covariance',
-                marker='o', markersize=2, linestyle='--')
+    ax_cov.plot(n_samples_list, mse_covariance_mean, label='Covariance',
+                marker='o', markersize=5, linestyle='-')
+
+    # Fill between the standard deviation
+    ax_cov.fill_between(n_samples_list,
+                        mse_covariance_mean - mse_covariance_std,
+                        mse_covariance_mean + mse_covariance_std,
+                        color='b', alpha=0.2,
+                        label='Standard deviation')
+
     ax_cov.set_xlabel('Number of samples')
     ax_cov.set_ylabel('MSE')
     ax_cov.set_title(
-            'MSE as a function of the number of samples: covariance')
+            'MSE as a function of the number of samples: covariance\n'
+            'Folder: {}'.format(folder))
+    # Semi-log plot
     ax_cov.set_xscale('log')
-    ax_cov.set_yscale('log')
 
     if save:
         plt.savefig(os.path.join(folder, 'MSE_covariance.pdf'),
@@ -84,6 +106,11 @@ if __name__ == "__main__":
     parser.add_argument('--save', action='store_true', default=False,
                         help='Save the plot as pdf and LaTeX code')
     args = parser.parse_args()
+
+    rich.print(
+            '[bold green]Plotting MSE as a function of the number of samples')
+    rich.print('[bold green]Folder: {}'.format(args.storage_path))
+    rich.print('[bold red]Sorry, the lower-bound is not plotted yet')
 
     # Check if subfolders with name "group_" exist
     # Which means that several parameters have been
@@ -113,10 +140,13 @@ if __name__ == "__main__":
             mse_covariance_mean.append(results['mse_covariance_mean'])
             mse_location_std.append(results['mse_location_std'])
             mse_covariance_std.append(results['mse_covariance_std'])
-            trias_range = results['trials_range']
-            trials_per_group.append(trias_range[1] - trias_range[0] + 1)
+            trials_range = results['trials_range']
+            trials_per_group.append(trials_range[1] - trials_range[0] + 1)
+            n_samples_list = results['n_samples_list']
 
         # Compute the weighted average
+        mse_location_mean = np.array(mse_location_mean)
+        mse_covariance_mean = np.array(mse_covariance_mean)
         mse_location_mean = np.average(mse_location_mean, axis=0,
                                        weights=trials_per_group)
         mse_covariance_mean = np.average(mse_covariance_mean, axis=0,
@@ -124,6 +154,8 @@ if __name__ == "__main__":
 
         # Compute the weighted standard deviation
         # TODO: VERIFY THIS FORMULA!!!!!!!
+        mse_location_std = np.array(mse_location_std)
+        mse_covariance_std = np.array(mse_covariance_std)
         mse_location_std = np.sqrt(np.average(
             (mse_location_std**2 + mse_location_mean**2), axis=0,
             weights=trials_per_group) - mse_location_mean**2)
@@ -136,8 +168,9 @@ if __name__ == "__main__":
                         mse_location_std,
                         mse_covariance_mean,
                         mse_covariance_std,
-                        trias_range,
-                        args.storage_path)
+                        n_samples_list,
+                        args.storage_path,
+                        args.save)
 
     else:
         # We plot the results from each folder
@@ -151,7 +184,7 @@ if __name__ == "__main__":
                             results['mse_location_std'],
                             results['mse_covariance_mean'],
                             results['mse_covariance_std'],
-                            results['trials_range'],
+                            results['n_samples_list'],
                             folder,
                             args.save)
 

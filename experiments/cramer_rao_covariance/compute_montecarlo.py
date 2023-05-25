@@ -149,7 +149,8 @@ if __name__ == "__main__":
     with open(progress_file, 'a') as f:
         f.write('finished')
 
-    # Compute the mean and covariance of the MSE
+    # Compute the mean and std of the MSE for location and
+    # covariance
     mse_location = np.zeros((n_trials, len(n_samples_list)))
     mse_covariance = np.zeros((n_trials, len(n_samples_list)))
     for trial_no in range(0, trials_range[1] - trials_range[0] + 1):
@@ -158,15 +159,21 @@ if __name__ == "__main__":
     mse_location_mean = np.mean(mse_location, axis=0)
     mse_covariance_mean = np.mean(mse_covariance, axis=0)
 
+    std_location = np.std(mse_location, axis=0)
+    std_covariance = np.std(mse_covariance, axis=0)
+
     # Save the results
     results = {'mse_location_mean': mse_location_mean,
                'mse_covariance_mean': mse_covariance_mean,
+               'mse_location_std': std_location,
+               'mse_covariance_std': std_covariance,
                'trials_range': trials_range,
                'n_trials': n_trials,
                'n_samples_list': n_samples_list,
                'mean': mean,
                'covariance': covariance,
                'seed': seed}
+
     results_file = os.path.join(args.storage_path, 'results.pkl')
     with open(results_file, 'wb') as f:
         pickle.dump(results, f)

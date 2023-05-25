@@ -19,7 +19,7 @@ if __name__ == "__main__":
             '--mean', type=str,
             default='0, 0', help='Mean of the gaussian distribution')
     parser.add_argument(
-            '--cov', type=str, nargs=4,
+            '--cov', type=str,
             default='1, 0, 0, 1',
             help='Covariance matrix of the gaussian distribution')
     parser.add_argument(

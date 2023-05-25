@@ -23,7 +23,7 @@ if __name__ == "__main__":
             default=[1, 0, 0, 1],
             help='Covariance matrix of the gaussian distribution')
     parser.add_argument(
-            '--n_samples', type=int, default=1000,
+            '--n_samples', type=float, default=1000,
             help='Number of samples to generate')
     parser.add_argument(
             '--seed', type=int, default=0,

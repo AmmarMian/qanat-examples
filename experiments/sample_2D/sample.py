@@ -16,11 +16,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
             description='Sample 2D gaussian distribution')
     parser.add_argument(
-            '--mean', type=float, nargs=2,
-            default=[0, 0], help='Mean of the gaussian distribution')
+            '--mean', type=str,
+            default='0, 0', help='Mean of the gaussian distribution')
     parser.add_argument(
-            '--cov', type=float, nargs=4,
-            default=[1, 0, 0, 1],
+            '--cov', type=str, nargs=4,
+            default='1, 0, 0, 1',
             help='Covariance matrix of the gaussian distribution')
     parser.add_argument(
             '--n_samples', type=float, default=1000,
@@ -37,7 +37,10 @@ if __name__ == "__main__":
     rng = np.random.RandomState(int(args.seed))
 
     # Generate samples
+    mean = [float(x.strip()) for x args.mean.split(',')]
+    cov = [float(x.strip()) for x in args.cov.split(',')]
     cov = np.array(args.cov).reshape(2, 2)
+
     samples = rng.multivariate_normal(args.mean, cov, int(args.n_samples))
 
     # Save samples and parameters

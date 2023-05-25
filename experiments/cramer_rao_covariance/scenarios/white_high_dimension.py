@@ -11,8 +11,8 @@
 
 import numpy as np
 
-n_features = 150
-n_samples_list = np.logspace(1, 3, 30,
+n_features = 70
+n_samples_list = np.logspace(1, 2, 30,
                              base=n_features,
                              dtype=int)
 n_samples_list = np.unique(n_samples_list)

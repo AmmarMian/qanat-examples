@@ -40,10 +40,14 @@ if __name__ == "__main__":
                         ' containing the parameters of the simulation: '
                         'covariance, number of samples list, number of '
                         'trials.')
-    parser.add_argument('--trials_range', type=str, default=None,
+    parser.add_argument('--trials_range_start', type=int, default=None,
                         help='Range of the total number of trials to run in '
-                        'this script. BETWEEN QUOTES, SEPARATED BY SPACE.\n'
-                        'If None, the script will run all the trials.'
+                        'this script. Start of the range.'
+                        'This is useful when running the script several times '
+                        'on a cluster.')
+    parser.add_argument('--trials_range_end', type=int, default=None,
+                        help='Range of the total number of trials to run in '
+                        'this script. End of the range.'
                         'This is useful when running the script several times '
                         'on a cluster.')
     parser.add_argument('--seed', type=float, default=42, help='Seed for the'
@@ -71,18 +75,18 @@ if __name__ == "__main__":
     n_jobs = args.n_jobs
 
     # Check the trials range
-    if args.trials_range is not None:
-        args.trials_range = [int(x) for x in args.trials_range.split(' ')]
-        if args.trials_range[0] > args.trials_range[1]:
+    if args.trials_range_start is not None and \
+            args.trials_range_end is not None:
+        if args.trials_range_start > args.trials_range_end:
             raise ValueError("The first element of the trials range should be "
                              "smaller than the second one.")
-        if args.trials_range[0] < 1:
+        if args.trials_range_start < 1:
             raise ValueError("The first element of the trials range should be "
                              "greater than 1.")
-        if args.trials_range[1] < 1:
+        if args.trials_range_end < 1:
             raise ValueError("The second element of the trials range should "
                              "be greater than 1.")
-        trials_range = args.trials_range
+        trials_range = [args.trials_range_start, args.trials_range_end]
     else:
         trials_range = [1, n_trials]
 

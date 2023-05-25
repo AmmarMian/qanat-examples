@@ -37,11 +37,11 @@ if __name__ == "__main__":
     rng = np.random.RandomState(int(args.seed))
 
     # Generate samples
-    mean = [float(x.strip()) for x args.mean.split(',')]
+    mean = [float(x.strip()) for x in args.mean.split(',')]
     cov = [float(x.strip()) for x in args.cov.split(',')]
-    cov = np.array(args.cov).reshape(2, 2)
+    cov = np.array(cov).reshape(2, 2)
 
-    samples = rng.multivariate_normal(args.mean, cov, int(args.n_samples))
+    samples = rng.multivariate_normal(mean, cov, int(args.n_samples))
 
     # Save samples and parameters
     if not os.path.exists(os.path.dirname(args.storage_path)):

@@ -40,9 +40,9 @@ if __name__ == "__main__":
                         ' containing the parameters of the simulation: '
                         'covariance, number of samples list, number of '
                         'trials.')
-    parser.add_argument('--trials_range', type=int, nargs=2, default=None,
+    parser.add_argument('--trials_range', type=int, nargs=str, default=None,
                         help='Range of the total number of trials to run in '
-                        'this script.\n'
+                        'this script. BETWEEN QUOTES, SEPARATED BY SPACE.\n'
                         'If None, the script will run all the trials.'
                         'This is useful when running the script several times '
                         'on a cluster.')
@@ -72,6 +72,7 @@ if __name__ == "__main__":
 
     # Check the trials range
     if args.trials_range is not None:
+        args.trials_range = [int(x) for x in args.trials_range.split(' ')]
         if args.trials_range[0] > args.trials_range[1]:
             raise ValueError("The first element of the trials range should be "
                              "smaller than the second one.")

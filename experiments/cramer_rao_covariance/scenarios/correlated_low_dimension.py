@@ -17,7 +17,7 @@ n_samples_list = np.logspace(1, 3, 30,
                              base=n_features,
                              dtype=int)
 n_samples_list = np.unique(n_samples_list)
-n_trials = 10000
+n_trials = 100000
 
 mean = np.zeros(n_features)
 covariance = toeplitz(0.75 ** np.arange(n_features))

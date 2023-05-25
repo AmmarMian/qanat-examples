@@ -26,7 +26,7 @@ if __name__ == "__main__":
             '--n_samples', type=float, default=1000,
             help='Number of samples to generate')
     parser.add_argument(
-            '--seed', type=int, default=0,
+            '--seed', type=float, default=0,
             help='Random seed')
     parser.add_argument('--storage_path', type=str, default='data/',
                         help='Path to store the generated samples')
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Set random seed
-    rng = np.random.RandomState(args.seed)
+    rng = np.random.RandomState(int(args.seed))
 
     # Generate samples
     cov = np.array(args.cov).reshape(2, 2)
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     np.savetxt(
             os.path.join(args.storage_path, 'samples.csv'),
             samples, delimiter=",")
-    parameters = [args.mean, args.cov, args.n_samples, args.seed]
+    parameters = [args.mean, args.cov, int(args.n_samples), int(args.seed)]
     with open(os.path.join(args.storage_path, 'parameters.txt'), 'w') as f:
         for item in parameters:
             f.write("%s\n" % item)

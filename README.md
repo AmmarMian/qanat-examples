@@ -16,12 +16,13 @@ This is still a Work in Progress and documentation will be available at some poi
       <a href="#installation">Installation</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#usingpip">Using pip</a></li>
+        <li><a href="#settinguptheproject">Setting up the project</a></li>
       </ul>
     </li>
     <li><a href="#authors">Authors</a></li>
   </ol>
 </details>
+
 
 ## Documentation
 
@@ -34,27 +35,29 @@ TODO
 * python >= 3.6
 * htcondor (for HTcondor runner)
 * an emoji friendly terminal
-* [qanat]
+* [Qanat](https://github.com/AmmarMian/qanat)
 
-### Using pip
+### Setting up the project
 
-Just run
+After cloning the repository and going inside:
 
 ```bash
-pip install git+https://github.com/AmmarMian/qanat
+git clone https://github.com/AmmarMian/qanat-examples
+cd qanat-examples
 ```
+
+Setup the project using the Makefile (Not available yet):
+
+```bash
+make intialize
+```
+
+which will initialize the qanat repertory and add relevant experiments and datasets.
+
 
 ## Authors
 
 Ammar Mian, Associate professor at LISTIC, Université Savoie Mont-Blanc
   * :envelope: mail: ammar.mian@univ-smb.fr
   * :house: web: https://ammarmian.github.io
-
-## Credits
-
-This package was created with Cookiecutter and the audreyr/cookiecutter-pypackage project template.
-
-* Cookiecutter: https://github.com/audreyr/cookiecutter
-* audreyr/cookiecutter-pypackage: https://github.com/audreyr/cookiecutter-pypackage
-
 

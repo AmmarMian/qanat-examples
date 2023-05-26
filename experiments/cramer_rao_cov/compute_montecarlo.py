@@ -8,12 +8,11 @@
 # a centered mutivariate normal distribution
 # We estimate the covariance and
 # compare it to the theoretical values
-# using an MSE criterion.
+# using an MSE criterion on covariance.
 # =========================================
 
 import numpy as np
 from joblib import Parallel, delayed
-from sklearn.metrics import mean_squared_error
 from sklearn.covariance import EmpiricalCovariance
 import argparse
 import os
@@ -124,9 +123,12 @@ if __name__ == "__main__":
                     assume_centered=True).fit(samples)
             # Compute the MSE
             mse_covariance[i] = \
-                mean_squared_error(covariance,
-                                   empirical_covariance.covariance_)
-
+                np.trace(
+                    np.dot(
+                        covariance - empirical_covariance.covariance_,
+                        (covariance - empirical_covariance.covariance_).T
+                    )
+                )
         # Write to progress.txt regularly to track the progress
         # of the simulation
         if (trial_no - trials_range[0] + 1) % WRITE_PROGRESS_EVERY == 0:

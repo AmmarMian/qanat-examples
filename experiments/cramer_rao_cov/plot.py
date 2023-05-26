@@ -17,6 +17,7 @@ import seaborn as sns
 import tikzplotlib
 import rich
 import sys
+from tqdm import tqdm
 file_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(file_dir, '../..'))
 from src.utils import (
@@ -24,7 +25,6 @@ from src.utils import (
 )
 from src.cramer_rao import (
         crb_centered_multivariate_gaussian_basis,
-        crb_centered_multivariate_gaussian_kron
 )
 
 sns.set_style('darkgrid')
@@ -64,7 +64,6 @@ def generate_figure(mse_covariance_mean,
             'Folder: {}'.format(folder))
     # log-log plot
     ax_cov.set_xscale('log')
-    ax_cov.set_yscale('log')
 
     if save:
         plt.savefig(os.path.join(folder, 'MSE_covariance.pdf'),
@@ -134,7 +133,8 @@ if __name__ == "__main__":
 
         # Compute the lower bound
         crb = np.zeros((len(n_samples_list),))
-        for i, n_samples in enumerate(n_samples_list):
+        print("Computing CRB")
+        for i, n_samples in enumerate(tqdm(n_samples_list)):
             crb[i] = np.sqrt(np.trace(
                     crb_centered_multivariate_gaussian_basis(
                         results['covariance'], n_samples)
@@ -159,12 +159,12 @@ if __name__ == "__main__":
             # Compute the lower bound
             n_samples_list = results['n_samples_list']
             crb = np.zeros((len(n_samples_list),))
-            for i, n_samples in enumerate(n_samples_list):
+            print("Computing CRB")
+            for i, n_samples in enumerate(tqdm(n_samples_list)):
                 crb[i] = np.trace(
-                            crb_centered_multivariate_gaussian_kron(
+                            crb_centered_multivariate_gaussian_basis(
                                 results['covariance'], n_samples)
                         )
-            print(results['mse_covariance_mean']/crb)
 
             # Plotting
             generate_figure(results['mse_covariance_mean'],

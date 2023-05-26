@@ -11,13 +11,22 @@ import numpy as np
 from statsmodels.tsa.tsatools import (
         duplication_matrix
 )
+from numba import njit
 
 
 # Multivariate Gaussian
 # =====================
-def basis_euc_sym_mat_real(M):
+@njit
+def basis_euc_sym_mat_real(M: int) -> np.ndarray:
     """Construction of the cannonical basis of M*M
-    symetric matrices"""
+    symetric matrices
+
+    Args:
+        M (int): Dimension of the matrix
+
+    Returns:
+        np.ndarray: Cannonical basis of M*M symetric matrices
+    """
 
     lindex = int(M*(M+1)/2)
     Omega = np.zeros((M, M, lindex), dtype=float)
@@ -35,11 +44,34 @@ def basis_euc_sym_mat_real(M):
                 index = index+1
     return Omega
 
+#TODO: DEBUG
+def basis_euc_sym_mat_real_vec(M: int) -> np.ndarray:
+    """Alternative implementation of the cannonical basis of M*M
+    symetric matrices using vectorization.
+
+    Args:
+        M (int): Dimension of the matrix
+
+    Returns:
+        np.ndarray: Cannonical basis of M*M symetric matrices
+    """
+    lindex = int(M*(M+1)/2)
+    Omega = np.zeros((M, M, lindex), dtype=float)
+    triu_indices = np.triu_indices(M, k=1)
+    tril_indices = np.tril_indices(M, k=-1)
+    diag_indices = np.diag_indices(M, ndim=3)
+    Omega[diag_indices] = 1
+    Omega[(*triu_indices, np.arange(M, lindex))] = \
+        1/np.sqrt(2)
+    Omega[(*tril_indices, np.arange(M, lindex))] = \
+        1/np.sqrt(2)
+    return Omega
+
 
 def crb_centered_multivariate_gaussian_basis(
         cov: np.ndarray, n_samples: int) -> np.ndarray:
     """Compute Cramer-Rao lower bound for centered multivariate Gaussian.
-    Version with Basis.
+    Version with Basis. Slower in high dimension.
 
     Args:
         cov (np.ndarray): Covariance matrix of the centered multivariate

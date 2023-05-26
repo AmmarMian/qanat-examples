@@ -12,7 +12,7 @@
 import numpy as np
 from scipy.linalg import toeplitz
 
-n_features = 7
+n_features = 15
 n_samples_list = np.logspace(1, 4, 30,
                              base=n_features,
                              dtype=int)

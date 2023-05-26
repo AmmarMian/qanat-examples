@@ -1,6 +1,9 @@
 .qanat
 results
 
+# doit stuff
+.doit.db*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 src/__pycache__/

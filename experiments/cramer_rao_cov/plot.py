@@ -118,6 +118,9 @@ if __name__ == "__main__":
             trials_per_group.append(trials_range[1] - trials_range[0] + 1)
             n_samples_list = results['n_samples_list']
 
+
+        import pdb; pdb.set_trace()
+
         # Compute the weighted average
         mse_covariance_mean = np.array(mse_covariance_mean)
         mse_covariance_mean = np.average(mse_covariance_mean, axis=0,

@@ -8,11 +8,16 @@ executable_command: python
 tags:
   - Gaussian
   - Estimation
-  - Cramer-RAo
+  - Cramer-Rao
   - MonteCarlo
 actions:
   - plot:
       name: plot
-      description: Plot the MSE as a function of number of samples.
       executable: experiments/cramer_rao_mean_cov/plot.py
+      description: Plot the MSE and lower-bound as a function of the number of samples.
+      executable_command: python
+  - show_config:
+      name: show_config
+      executable: experiments/cramer_rao_mean_cov/show_config.py
+      description: Show the configuration file used for this run.
       executable_command: python

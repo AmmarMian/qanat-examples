@@ -37,7 +37,7 @@ def task_init_qanat():
 
     return {
         'basename': 'init_qanat',
-        'actions': [['qanat', 'init', '.']],
+        'actions': [['qanat', 'init', '.', '-y']],
         'targets': ['.qanat/config.yaml',
                     '.qanat/database.db',
                     '.qanat/cache'],

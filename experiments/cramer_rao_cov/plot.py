@@ -118,9 +118,6 @@ if __name__ == "__main__":
             trials_per_group.append(trials_range[1] - trials_range[0] + 1)
             n_samples_list = results['n_samples_list']
 
-
-        import pdb; pdb.set_trace()
-
         # Compute the weighted average
         mse_covariance_mean = np.array(mse_covariance_mean)
         mse_covariance_mean = np.average(mse_covariance_mean, axis=0,
@@ -157,9 +154,20 @@ if __name__ == "__main__":
             with open(os.path.join(folder, 'results.pkl'), 'rb') as f:
                 results = pickle.load(f)
 
+            # Compute the lower bound
+            n_samples_list = results['n_samples_list']
+            crb = np.zeros((len(n_samples_list),))
+            for i, n_samples in enumerate(n_samples_list):
+                crb[i] = np.sqrt(np.trace(
+                        crb_centered_multivariate_gaussian(
+                            results['covariance'], n_samples)
+                            )
+                        )
+
             # Plotting
             generate_figure(results['mse_covariance_mean'],
                             results['mse_covariance_std'],
+                            crb,
                             results['n_samples_list'],
                             folder,
                             args.save)

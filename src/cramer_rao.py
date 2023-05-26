@@ -26,8 +26,9 @@ def crb_centered_multivariate_gaussian(
     """
 
     icov = np.linalg.inv(cov)
+    n_features = cov.shape[0]
 
     return np.linalg.inv(
-            n_samples * duplication_matrix(n_samples).T @
-            np.kron(icov, icov) @ duplication_matrix(n_samples)
+            n_samples * duplication_matrix(n_features).T @
+            np.kron(icov, icov) @ duplication_matrix(n_features)
         )

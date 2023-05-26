@@ -23,7 +23,8 @@ from src.utils import (
         tikzplotlib_fix_ncols
 )
 from src.cramer_rao import (
-        crb_centered_multivariate_gaussian_basis
+        crb_centered_multivariate_gaussian_basis,
+        crb_centered_multivariate_gaussian_kron
 )
 
 sns.set_style('darkgrid')
@@ -160,7 +161,7 @@ if __name__ == "__main__":
             crb = np.zeros((len(n_samples_list),))
             for i, n_samples in enumerate(n_samples_list):
                 crb[i] = np.trace(
-                            crb_centered_multivariate_gaussian_basis(
+                            crb_centered_multivariate_gaussian_kron(
                                 results['covariance'], n_samples)
                         )
             print(results['mse_covariance_mean']/crb)

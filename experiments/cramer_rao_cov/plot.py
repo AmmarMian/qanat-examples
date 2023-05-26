@@ -20,8 +20,11 @@ import sys
 file_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(file_dir, '../..'))
 from src.utils import (
-        tikzplotlib_fix_ncols)
-
+        tikzplotlib_fix_ncols
+)
+from src.cramer_rao import (
+        crb_centered_multivariate_gaussian
+)
 
 sns.set_style('darkgrid')
 
@@ -33,13 +36,14 @@ plt.rc('font', family='serif')
 
 def generate_figure(mse_covariance_mean,
                     mse_covariance_std,
+                    crb,
                     n_samples_list,
                     folder,
                     save=False):
 
     fig_cov, ax_cov = plt.subplots(1, 1, figsize=(6, 4))
     ax_cov.plot(n_samples_list, mse_covariance_mean, label='Covariance',
-                marker='o', markersize=5, linestyle='-')
+                marker='o', markersize=5, linestyle='')
 
     # Fill between the standard deviation
     ax_cov.fill_between(n_samples_list,
@@ -47,6 +51,10 @@ def generate_figure(mse_covariance_mean,
                         mse_covariance_mean + mse_covariance_std,
                         color='b', alpha=0.2,
                         label='Standard deviation')
+
+    # Plot the lower bound
+    ax_cov.plot(n_samples_list, crb, label='Lower bound',
+                marker='', c='k', linestyle='-')
 
     ax_cov.set_xlabel('Number of samples')
     ax_cov.set_ylabel('MSE')
@@ -122,9 +130,19 @@ if __name__ == "__main__":
             (mse_covariance_std**2 + mse_covariance_mean**2), axis=0,
             weights=trials_per_group) - mse_covariance_mean**2)
 
+        # Compute the lower bound
+        crb = np.zeros((len(n_samples_list),))
+        for i, n_samples in enumerate(n_samples_list):
+            crb[i] = np.sqrt(np.trace(
+                    crb_centered_multivariate_gaussian(
+                        results['covariance'], n_samples)
+                        )
+                    )
+
         # Plotting
         generate_figure(mse_covariance_mean,
                         mse_covariance_std,
+                        crb,
                         n_samples_list,
                         args.storage_path,
                         args.save)

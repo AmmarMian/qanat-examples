@@ -151,7 +151,7 @@ if __name__ == "__main__":
 
     # Compute the mean and std of the MSE for location and
     # covariance
-    mse_covariance = np.zeros((n_trials, len(n_samples_list)))
+    mse_covariance = np.zeros((total_trials, len(n_samples_list)))
     for trial_no in range(0, trials_range[1] - trials_range[0] + 1):
         mse_covariance[trial_no, :] = results_jobs[trial_no]
     mse_covariance_mean = np.mean(mse_covariance, axis=0)

@@ -49,7 +49,7 @@ cd qanat-examples
 Setup the project using the Makefile (Not available yet):
 
 ```bash
-make intialize
+doit init
 ```
 
 which will initialize the qanat repertory and add relevant experiments and datasets.

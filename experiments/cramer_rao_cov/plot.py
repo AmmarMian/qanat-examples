@@ -89,7 +89,8 @@ if __name__ == "__main__":
     rich.print(
             '[bold green]Plotting MSE as a function of the number of samples')
     rich.print('[bold green]Folder: {}'.format(args.storage_path))
-    rich.print('[bold red]Sorry, the lower-bound is not plotted yet')
+    rich.print('[bold red]Sorry, the lower-bound is very slow to compute.'
+               'for larger size of the covariance matrix.')
 
     # Check if subfolders with name "group_" exist
     # Which means that several parameters have been

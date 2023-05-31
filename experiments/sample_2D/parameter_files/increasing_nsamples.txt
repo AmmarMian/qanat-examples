@@ -1,9 +1,9 @@
 # Some comment
--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 20
--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 30
--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 40
--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 50
--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 60
--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 70
--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 80
+--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 20
+--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 30
+--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 40
+--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 50
+--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 60
+--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 70
+--mean 30, -3 --cov 100, 70, 70, 100 --n_samples 80
 

@@ -1,0 +1,24 @@
+# ========================================
+# FileName: increasing_nsamples.yaml
+# Date: 01 juin 2023 - 13:58
+# Author: Ammar Mian
+# Email: ammar.mian@univ-smb.fr
+# GitHub: https://github.com/ammarmian
+# Brief: Example parameter file
+# =========================================
+
+fixed_args:
+  positional: None
+  options:
+    '--mean': [10, -50]
+    '--cov': [1, 0.8, 0.8, 1]
+
+varying_args:
+  groups:
+    positional: None
+    options:
+      '--seed': [1, 555, 777]
+  range:
+    positional: None
+    options:
+      '--n_samples': [1, 500, 10]

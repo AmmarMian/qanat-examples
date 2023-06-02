@@ -8,24 +8,14 @@
 # =========================================
 
 fixed_args:
-  positional:
-    4: 20
-    2: 30
   options:
     '--mean': [10, -50]
     '--cov': [1, 0.8, 0.8, 1]
 
 varying_args:
   groups:
-    positional:
-      10: [40, 60]
-      1: ['a', 'b']
-      0: [1 ,2]
     options:
       '--seed': [1, 555, 777]
-      '--test': ['a', None]
   range:
-    positional:
-      5: [1, 10, 5]
     options:
-      '--n_samples': [1, 2, 1]
+      '--n_samples': [1, 1001, 100]

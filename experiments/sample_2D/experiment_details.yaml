@@ -3,7 +3,7 @@
 name: sample_2D
 description: Sample 2D Gaussian data for visualisation.
 path: experiments/sample_2D/
-executable: experiments/robust_estimators_corrupted/sample.py
+executable: experiments/sample_2D/sample.py
 executable_command: python
 tags:
   - Gaussian

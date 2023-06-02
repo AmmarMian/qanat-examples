@@ -13,9 +13,6 @@ fixed_args:
     '--cov': '1, 0.8, 0.8, 1'
 
 varying_args:
-  groups:
-    options:
-      '--seed': [1, 555, 777]
   range:
     options:
       '--n_samples': [5, 1001, 100]

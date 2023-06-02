@@ -74,6 +74,7 @@ def task_delet_qanat():
     """Delete the Qanat project"""
 
     def delete_qanat():
+        os.system('qanat cache clean')
         os.system('rm -rf .qanat')
         os.system('rm -rf results/**')
 

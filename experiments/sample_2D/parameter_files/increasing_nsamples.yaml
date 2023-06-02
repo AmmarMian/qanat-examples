@@ -9,7 +9,7 @@
 
 fixed_args:
   options:
-    '--mean': '10, -5O'
+    '--mean': '10, -50'
     '--cov': '1, 0.8, 0.8, 1'
 
 varying_args:

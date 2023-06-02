@@ -18,4 +18,4 @@ varying_args:
       '--seed': [1, 555, 777]
   range:
     options:
-      '--n_samples': [1, 1001, 100]
+      '--n_samples': [5, 1001, 100]

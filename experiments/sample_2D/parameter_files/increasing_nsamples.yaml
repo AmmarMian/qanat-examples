@@ -15,4 +15,4 @@ fixed_args:
 varying_args:
   range:
     options:
-      '--n_samples': [5, 1001, 100]
+      '--n_samples': [5, 2001, 100]

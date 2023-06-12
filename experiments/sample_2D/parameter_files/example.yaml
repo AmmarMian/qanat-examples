@@ -14,9 +14,9 @@ fixed_args:
 varying_args:
   groups:
     - options:
-        '--mean': [10, -50]
+        '--mean': '10, -50'
     - options:
-        '--mean': [1, 23]
+        '--mean': '1, 23'
   range:
     options:
       '--n_samples': [5, 2001, 100]

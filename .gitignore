@@ -1,5 +1,6 @@
 .qanat
 results
+documents
 
 # doit stuff
 .doit.db*

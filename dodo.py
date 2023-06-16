@@ -70,6 +70,30 @@ def task_add_experiments():
         }
 
 
+def task_add_documents():
+    """Add documents to the project"""
+
+    # Find all the document_details.yaml files in doucments/*/
+    documents_details = []
+    name_list = []
+    for root, dirs, files in os.walk('documents'):
+        if 'document_details.yaml' in files:
+            documents_details.append(os.path.join(root,
+                                                  'document_details.yaml'))
+            with open(os.path.join(root, 'document_details.yaml')) as f:
+                name_list.append(yaml.load(f, Loader=yaml.FullLoader)['name'])
+
+    for document_file, name in zip(documents_details, name_list):
+        yield {
+            'name': name,
+            'actions': [['qanat', 'document',
+                        'new', document_file]],
+            'verbosity': 2,
+            'doc': 'Add document {}'.format(name),
+            'task_dep': ['init_qanat', 'add_experiments']
+        }
+
+
 def task_delet_qanat():
     """Delete the Qanat project"""
 

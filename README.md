@@ -1,9 +1,11 @@
 <a name="readme-top"></a>
 # Qanat Examples
 
-This repository is a collection of examples for [Qanat](https://github.com/AmmarMian/qanat) experiment management system. It is constructed to work as a single qanat project with different experiments to showcase the versatility of the tool. 
+This repository is a collection of examples for [Qanat](https://github.com/AmmarMian/qanat) experiment management system. It is constructed to references several git repositories as submodules[^1] with different projects to showcase the versatility of the tool. 
 
-This is still a Work in Progress and documentation will be available at some point.
+This is still a Work in Progress and documentation is in progress.
+
+[^1]: Indeed a Qanat project must be a git repository to track the code running experiments.
 
 <details>
   <summary>Table of Contents</summary>
@@ -26,7 +28,8 @@ This is still a Work in Progress and documentation will be available at some poi
 
 ## Documentation
 
-TODO
+Documentation available at https://ammarmian.github.io/qanat/.
+**Still in progress**.
 
 ## Installation
 
@@ -37,19 +40,21 @@ TODO
 * an emoji friendly terminal
 * [Qanat](https://github.com/AmmarMian/qanat)
 
-### Setting up the project
+### Setting up the projects
 
-After cloning the repository and going inside:
+You can fetch all the examples projects thanks to:
 
 ```bash
-git clone https://github.com/AmmarMian/qanat-examples
+git clone --recurse-submodules https://github.com/AmmarMian/qanat-examples
 cd qanat-examples
 ```
 
-Setup the project using the Makefile (Not available yet):
+or a specific project by cloning the corresponding submodule.
+
+For every example, you can setup the configuration with:
 
 ```bash
-doit init
+doit initialize_example
 ```
 
 which will initialize the qanat repertory and add relevant experiments and datasets.

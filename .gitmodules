@@ -1,3 +1,6 @@
 [submodule "qanat-multivariatestatistics"]
 	path = qanat-multivariatestatistics
 	url = https://github.com/AmmarMian/qanat-multivariatestatistics
+[submodule "qanat-tutorials"]
+	path = qanat-tutorials
+	url = https://github.com/AmmarMian/qanat-tutorials
